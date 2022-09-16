@@ -8,19 +8,30 @@
 import Foundation
 import XCTest
 
-class Hub: UITestScreenBase {
-    
+class MainView: ScreenBase {
+    // ELEMENTS as Static Text, Buttons, Alerts etc
     lazy var datePicker1 = app.buttons.element(boundBy: 0)
     lazy var datePicker2 = app.buttons.element(boundBy: 1)
     lazy var monthButton = app.buttons["Month"]
     
-    func navigateToDatePicker1() {
+    // Picker Wheels
+    lazy var pickerWheelMonth: XCUIElement =  app.pickerWheels.element(boundBy: 0)
+    lazy var pickerWheelYear: XCUIElement =  app.pickerWheels.element(boundBy: 1)
+    
+    
+    // MARK: - WHEN
+    func whenINavigateToDatePicker1() {
         datePicker1.tap()
         monthButton.tap()
     }
     
-    func navigateToDatePicker2() {
+    func whenINavigateToDatePicker2() {
         datePicker2.tap()
+    }
+    
+    func thenIAdjustPickerWheel() {
+        pickerWheelMonth.adjustPickerWheelTo(value: Months.september.rawValue)
+        pickerWheelYear.adjustPickerWheelTo(value: "2010")
     }
     
     func adjustPickerWheelValueTo(value: String, WheelNumberIs: Int) {
@@ -54,6 +65,7 @@ class Hub: UITestScreenBase {
         // For test purposes to get message with current picker values
         XCTAssertTrue(monthButton.currentPosition() == month + " " + year, "Adjustment FAIL to set value \(month + year) instead set to \(monthButton.currentPosition())")
     }
+    
     /**
      Adjust 3 picker wheels to set value
      - Parameters:

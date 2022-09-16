@@ -8,8 +8,7 @@
 import Foundation
 import XCTest
 
-
-class UITestScreenBase {
+class ScreenBase {
     var app: XCUIApplication
     var testCase: XCTestCase
     
